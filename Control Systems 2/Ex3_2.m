@@ -18,6 +18,4 @@ sisotool(TF)
 
 margin(TF)
 
-figure
 
-margin(TF*0.02)
