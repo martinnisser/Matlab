@@ -1,6 +1,6 @@
 % Control 2 ; Exercise 3
 
-
+% adding stuff for linux
 
 R = 1;
 L = 0.03;
