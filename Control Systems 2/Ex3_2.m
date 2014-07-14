@@ -2,6 +2,8 @@
 
 % adding stuff for linux
 
+close all 
+
 R = 1;
 L = 0.03;
 Ka = 0.1;
@@ -16,7 +18,7 @@ G = Km / ( s * (J*s + B) * (L*s + R + Ka*Km) );
 
 sisotool(G)
 
-K = 0.01 *(3.3*s +1) / (0.03*s + 1);
+K = 0.01 *(3*s +1) / (0.03*s + 1);
 
 margin(G),
 hold all
@@ -32,9 +34,8 @@ G_I_V  = 1/(L*s + R + Ka*Km);
 % to plot step response yourself, must convert to closed loop TF
 figure
 hold all
-Closed_Loop = feedback(K*G, 1 ) % arguments are G and H (=1)
-[y,t]=step(Closed_Loop);
-plot(t,y)
+Closed_Loop = feedback(K*G, 1 ); % arguments are G and H (=1)
+step(Closed_Loop);
 
 % Finding the resulting w, I and V , for a step in the reference for theta
 % i.e. doing the step response for theta, which is plotting the resulting
@@ -47,16 +48,21 @@ plot(t,y)
 % only constant between w and theta (the system output). And working
 % further left you get the others, finally with the innermost loop, V.
 
-
 W = K*G / (G_th_w*(1 + K*G)) ;
 I = W/ G_w_I ;
 V = I / G_I_V;
 step(W)
+[w,t] = step(W); % just to extract maximum omega value
+max(w)           % just to extract maximum omega value
 step(I)
 step(V)
+legend('CL theta','omega W','Current I','Voltage v')
+
+
 
 
 % Following: Was trying to find w, I and V through a rough differentiation
+
 
 % count= 1
 % p=polyfit(t,y,7)    % fit a curve to the step response
